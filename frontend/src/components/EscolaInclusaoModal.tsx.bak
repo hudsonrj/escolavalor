@@ -1,0 +1,389 @@
+import { X, Heart, Brain, Star, Shield, Users, CheckCircle, Award, BookOpen, TrendingUp, MapPin, DollarSign, Sparkles, Target, MessageCircle, Zap, Activity, Lightbulb, } from 'lucide-react';
+
+interface EscolaInclusaoModalProps {
+  escola: any;
+  necessidade: {
+    id: string;
+    nome: string;
+    descricao: string;
+  };
+  onClose: () => void;
+}
+
+export function EscolaInclusaoModal({ escola, necessidade, onClose }: EscolaInclusaoModalProps) {
+  const getNecessidadeIcon = () => {
+    switch (necessidade.id) {
+      case 'autismo':
+        return Heart;
+      case 'tdah':
+        return Brain;
+      case 'superdotacao':
+        return Star;
+      case 'dislexia':
+        return Shield;
+      default:
+        return Users;
+    }
+  };
+
+  const getNecessidadeColor = () => {
+    switch (necessidade.id) {
+      case 'autismo':
+        return { from: 'from-red-500', to: 'to-pink-600', bg: 'bg-red-50 dark:bg-red-950', text: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-800' };
+      case 'tdah':
+        return { from: 'from-accent-500', to: 'to-purple-600', bg: 'bg-accent-50 dark:bg-accent-950', text: 'text-accent-700 dark:text-accent-300', border: 'border-accent-200 dark:border-accent-800' };
+      case 'superdotacao':
+        return { from: 'from-amber-500', to: 'to-yellow-600', bg: 'bg-amber-50 dark:bg-amber-950', text: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-800' };
+      case 'dislexia':
+        return { from: 'from-primary-500', to: 'to-blue-600', bg: 'bg-primary-50 dark:bg-primary-950', text: 'text-primary-700 dark:text-primary-300', border: 'border-primary-200 dark:border-primary-800' };
+      default:
+        return { from: 'from-secondary-500', to: 'to-green-600', bg: 'bg-secondary-50 dark:bg-secondary-950', text: 'text-secondary-700 dark:text-secondary-300', border: 'border-secondary-200 dark:border-secondary-800' };
+    }
+  };
+
+  const Icon = getNecessidadeIcon();
+  const colors = getNecessidadeColor();
+
+  // Extrair informações de inclusão
+  const inclusaoInfo = escola.caracteristicas?.inclusao || '';
+  const metodologia = escola.caracteristicas?.metodologia || 'tradicional';
+  const diferenciais = escola.caracteristicas?.diferenciais || [];
+  const atividades = escola.caracteristicas?.atividades_extracurriculares || [];
+  const bilingue = escola.caracteristicas?.bilingue;
+  const internacional = escola.caracteristicas?.internacional;
+
+  // Analisar por que esta escola é boa para esta necessidade
+  const getMotivos = () => {
+    const motivos: string[] = [];
+
+    if (necessidade.id === 'autismo') {
+      if (inclusaoInfo.toLowerCase().includes('tea') || inclusaoInfo.toLowerCase().includes('autismo')) {
+        motivos.push('Experiência comprovada com TEA');
+      }
+      if (inclusaoInfo.toLowerCase().includes('equipe multidisciplinar') || inclusaoInfo.toLowerCase().includes('psicólogo')) {
+        motivos.push('Equipe multidisciplinar especializada');
+      }
+      if (inclusaoInfo.toLowerCase().includes('sala de recursos')) {
+        motivos.push('Sala de recursos disponível');
+      }
+      if (inclusaoInfo.toLowerCase().includes('individualizado') || inclusaoInfo.toLowerCase().includes('adaptações')) {
+        motivos.push('Acompanhamento individualizado');
+      }
+    }
+
+    if (necessidade.id === 'tdah') {
+      if (inclusaoInfo.toLowerCase().includes('tdah')) {
+        motivos.push('Experiência específica com TDAH');
+      }
+      if (inclusaoInfo.toLowerCase().includes('psicopedagogo') || inclusaoInfo.toLowerCase().includes('psicólogo')) {
+        motivos.push('Suporte psicopedagógico');
+      }
+      if (metodologia !== 'tradicional') {
+        motivos.push('Metodologia adaptada e flexível');
+      }
+      if (inclusaoInfo.toLowerCase().includes('adaptações pedagógicas')) {
+        motivos.push('Adaptações pedagógicas personalizadas');
+      }
+    }
+
+    if (necessidade.id === 'superdotacao') {
+      if (inclusaoInfo.toLowerCase().includes('superdota') || inclusaoInfo.toLowerCase().includes('altas habilidades')) {
+        motivos.push('Programa específico para superdotação');
+      }
+      if (atividades.some((a: string) => a.toLowerCase().includes('olimpíada'))) {
+        motivos.push('Forte tradição em olimpíadas acadêmicas');
+      }
+      if (inclusaoInfo.toLowerCase().includes('enriquecimento') || inclusaoInfo.toLowerCase().includes('avançad')) {
+        motivos.push('Atividades de enriquecimento curricular');
+      }
+      if (metodologia === 'sociointeracionista' || metodologia === 'construtivista') {
+        motivos.push('Metodologia que estimula criatividade');
+      }
+    }
+
+    if (necessidade.id === 'dislexia') {
+      if (inclusaoInfo.toLowerCase().includes('dislexia')) {
+        motivos.push('Experiência com dislexia');
+      }
+      if (inclusaoInfo.toLowerCase().includes('sala de recursos')) {
+        motivos.push('Sala de recursos para reforço');
+      }
+      if (inclusaoInfo.toLowerCase().includes('adaptações')) {
+        motivos.push('Adaptações de avaliação e materiais');
+      }
+    }
+
+    // Motivos gerais
+    if (escola.tipo === 'federal') {
+      motivos.push('Escola pública federal de excelência');
+    }
+    if (escola.score_composto && parseFloat(escola.score_composto) > 70) {
+      motivos.push('Alto desempenho acadêmico');
+    }
+    if (bilingue) {
+      motivos.push('Programa bilíngue');
+    }
+    if (internacional) {
+      motivos.push('Currículo internacional');
+    }
+
+    return motivos.length > 0 ? motivos : ['Atende educação inclusiva'];
+  };
+
+  const getVantagens = () => {
+    const vantagens: string[] = [];
+
+    // Vantagens específicas da metodologia
+    if (metodologia === 'sociointeracionista') {
+      vantagens.push('Metodologia que respeita ritmos individuais de aprendizagem');
+    } else if (metodologia === 'construtivista') {
+      vantagens.push('Foco no protagonismo do aluno e aprendizado ativo');
+    } else if (metodologia === 'montessoriana') {
+      vantagens.push('Ambiente preparado e aprendizado autodirigido');
+    } else if (metodologia === 'waldorf') {
+      vantagens.push('Educação holística com foco no desenvolvimento integral');
+    }
+
+    // Vantagens dos diferenciais
+    if (Array.isArray(diferenciais)) {
+      diferenciais.slice(0, 3).forEach((dif: string) => {
+        vantagens.push(dif);
+      });
+    }
+
+    // Vantagens de atividades
+    if (atividades.length > 0) {
+      vantagens.push(`Atividades diversificadas: ${atividades.slice(0, 3).join(', ')}`);
+    }
+
+    return vantagens;
+  };
+
+  const motivos = getMotivos();
+  const vantagens = getVantagens();
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-950 rounded-3xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-800">
+        {/* Header */}
+        <div className={`sticky top-0 bg-gradient-to-br ${colors.from} ${colors.to} text-white p-8 rounded-t-3xl z-10`}>
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start gap-4 flex-1">
+              {/* Icon */}
+              <div className="bg-white/20 p-4 rounded-2xl shadow-lg">
+                <Icon className="h-10 w-10" />
+              </div>
+
+              <div className="flex-1">
+                <h2 className="text-3xl font-black font-display mb-2">{escola.nome}</h2>
+                <div className="flex items-center gap-3 text-white/90 mb-3">
+                  <div className="flex items-center gap-1.5">
+                    <MapPin className="h-4 w-4" />
+                    <span className="text-sm font-semibold">
+                      {escola.bairro}, {escola.municipio} - {escola.uf}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Badges */}
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 rounded-full border border-white/30">
+                    <Icon className="h-4 w-4" />
+                    <span className="text-sm font-bold">{necessidade.nome}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 rounded-full border border-white/30">
+                    <Brain className="h-4 w-4" />
+                    <span className="text-sm font-bold">Análise Psicopedagógica</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={onClose}
+              className="text-white/80 hover:text-white hover:bg-white/10 p-2.5 rounded-xl transition-all"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 space-y-6">
+          {/* Por que esta escola? */}
+          <div className="bg-secondary-50 dark:bg-secondary-950 border border-secondary-200 dark:border-secondary-800 rounded-2xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-secondary-600 p-3 rounded-xl shadow-md">
+                  <Target className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-black font-display text-secondary-900 dark:text-secondary-100">
+                  Por que recomendamos esta escola?
+                </h3>
+              </div>
+              <ul className="space-y-3">
+                {motivos.map((motivo, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="flex-shrink-0 mt-1">
+                      <CheckCircle className="h-5 w-5 text-secondary-600 dark:text-secondary-400" />
+                    </div>
+                    <span className="text-secondary-900 dark:text-secondary-100 text-sm leading-relaxed font-medium">
+                      {motivo}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Informações de Inclusão */}
+          {inclusaoInfo && (
+            <div className={`${colors.bg} border ${colors.border} rounded-2xl p-6`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`bg-gradient-to-br ${colors.from} ${colors.to} p-3 rounded-xl shadow-md`}>
+                    <Heart className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className={`text-2xl font-black font-display ${colors.text}`}>
+                    Estrutura de Inclusão
+                  </h3>
+                </div>
+                <p className={`${colors.text} text-sm leading-relaxed font-medium`}>
+                  {inclusaoInfo}
+                </p>
+            </div>
+          )}
+
+          {/* Vantagens */}
+          {vantagens.length > 0 && (
+            <div className="bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-primary-600 p-3 rounded-xl shadow-md">
+                    <Sparkles className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-black font-display text-primary-900 dark:text-primary-100">
+                    Diferenciais Pedagógicos
+                  </h3>
+                </div>
+                <ul className="space-y-3">
+                  {vantagens.map((vantagem, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <div className="flex-shrink-0 mt-1">
+                        <Award className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <span className="text-primary-900 dark:text-primary-100 text-sm leading-relaxed font-medium">
+                        {vantagem}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+            </div>
+          )}
+
+          {/* Informações Gerais em Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Tipo e Score */}
+            <div className="bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800">
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                <h4 className="font-bold text-gray-900 dark:text-white text-sm">Tipo</h4>
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 capitalize font-semibold">{escola.tipo}</p>
+              {metodologia && (
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 capitalize">
+                  {metodologia}
+                </p>
+              )}
+            </div>
+
+            {/* Score Composto */}
+            {escola.score_composto && (
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                  <h4 className="font-bold text-gray-900 dark:text-white text-sm">Desempenho</h4>
+                </div>
+                <p className="text-3xl font-black text-primary-600 dark:text-primary-400">
+                  {parseFloat(escola.score_composto).toFixed(1)}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Score composto</p>
+              </div>
+            )}
+
+            {/* Mensalidade */}
+            {escola.mensalidade_anual && (
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <DollarSign className="h-5 w-5 text-secondary-600 dark:text-secondary-400" />
+                  <h4 className="font-bold text-gray-900 dark:text-white text-sm">Mensalidade</h4>
+                </div>
+                <p className="text-2xl font-black text-secondary-600 dark:text-secondary-400">
+                  R$ {(parseFloat(escola.mensalidade_anual) / 12).toFixed(2)}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">por mês</p>
+              </div>
+            )}
+
+            {/* ICB */}
+            {escola.icb && (
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <Activity className="h-5 w-5 text-accent-600 dark:text-accent-400" />
+                  <h4 className="font-bold text-gray-900 dark:text-white text-sm">Custo-Benefício</h4>
+                </div>
+                <p className="text-2xl font-black text-accent-600 dark:text-accent-400">
+                  {parseFloat(escola.icb).toFixed(2)}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">ICB</p>
+              </div>
+            )}
+          </div>
+
+          {/* Atividades Extracurriculares */}
+          {atividades.length > 0 && (
+            <div className="bg-accent-50 dark:bg-accent-950 border border-accent-200 dark:border-accent-800 rounded-2xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-accent-600 p-3 rounded-xl shadow-md">
+                  <Users className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-black font-display text-accent-900 dark:text-accent-100">
+                  Atividades Extracurriculares
+                </h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {atividades.map((atividade: string, index: number) => (
+                  <span
+                    key={index}
+                    className="px-4 py-2 bg-white dark:bg-gray-900 text-accent-800 dark:text-accent-200 text-sm rounded-full border border-accent-200 dark:border-accent-800 font-semibold"
+                  >
+                    {atividade}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Call to Action */}
+          <div className="bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800 rounded-2xl p-6">
+              <div className="flex items-start gap-4">
+                <div className="bg-primary-600 p-3 rounded-xl shadow-md flex-shrink-0">
+                  <Lightbulb className="h-7 w-7 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-black font-display text-primary-900 dark:text-primary-100 mb-3">
+                    Próximos Passos
+                  </h3>
+                  <p className="text-primary-800 dark:text-primary-200 text-sm mb-4 leading-relaxed font-medium">
+                    Recomendamos agendar uma visita presencial para conhecer a estrutura, conversar com a equipe pedagógica
+                    e verificar se a escola atende às necessidades do seu filho.
+                  </p>
+                  <button className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-xl transition-all font-bold text-sm flex items-center gap-2 shadow-md">
+                    <MessageCircle className="h-5 w-5" />
+                    Conversar com a Assistente IA
+                  </button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

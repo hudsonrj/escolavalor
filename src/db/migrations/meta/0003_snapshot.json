@@ -1,0 +1,814 @@
+{
+  "id": "42509651-3a9d-4e9c-a1a5-4e6a3e7546f5",
+  "prevId": "fd0327ed-3f81-43f0-a403-5eadf83393e8",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.aprovacoes_universitarias": {
+      "name": "aprovacoes_universitarias",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "universidade": {
+          "name": "universidade",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "curso": {
+          "name": "curso",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "quantidade": {
+          "name": "quantidade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ano_referencia": {
+          "name": "ano_referencia",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coletado_em": {
+          "name": "coletado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "aprovacoes_universitarias_escola_id_escolas_id_fk": {
+          "name": "aprovacoes_universitarias_escola_id_escolas_id_fk",
+          "tableFrom": "aprovacoes_universitarias",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.concursos_militares": {
+      "name": "concursos_militares",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "concurso": {
+          "name": "concurso",
+          "type": "concurso_militar",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aprovados": {
+          "name": "aprovados",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ano_referencia": {
+          "name": "ano_referencia",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coletado_em": {
+          "name": "coletado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "concursos_militares_escola_id_escolas_id_fk": {
+          "name": "concursos_militares_escola_id_escolas_id_fk",
+          "tableFrom": "concursos_militares",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.enem_detalhes": {
+      "name": "enem_detalhes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nota_media": {
+          "name": "nota_media",
+          "type": "numeric(6, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nota_maxima": {
+          "name": "nota_maxima",
+          "type": "numeric(6, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nota_minima": {
+          "name": "nota_minima",
+          "type": "numeric(6, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "redacao_media": {
+          "name": "redacao_media",
+          "type": "numeric(6, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "redacao_maxima": {
+          "name": "redacao_maxima",
+          "type": "numeric(6, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_alunos": {
+          "name": "total_alunos",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ano_referencia": {
+          "name": "ano_referencia",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coletado_em": {
+          "name": "coletado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "enem_detalhes_escola_id_escolas_id_fk": {
+          "name": "enem_detalhes_escola_id_escolas_id_fk",
+          "tableFrom": "enem_detalhes",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.escolas": {
+      "name": "escolas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "cnpj": {
+          "name": "cnpj",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "tipo_escola",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uf": {
+          "name": "uf",
+          "type": "char(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "municipio": {
+          "name": "municipio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lat": {
+          "name": "lat",
+          "type": "numeric(10, 8)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lng": {
+          "name": "lng",
+          "type": "numeric(11, 8)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mensalidade_anual": {
+          "name": "mensalidade_anual",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mensalidade_ano_ref": {
+          "name": "mensalidade_ano_ref",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "escolas_cnpj_unique": {
+          "name": "escolas_cnpj_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "cnpj"
+          ]
+        }
+      }
+    },
+    "public.historico": {
+      "name": "historico",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icb": {
+          "name": "icb",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "score_composto": {
+          "name": "score_composto",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "referencia_ano": {
+          "name": "referencia_ano",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "snapshot_em": {
+          "name": "snapshot_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "historico_escola_id_escolas_id_fk": {
+          "name": "historico_escola_id_escolas_id_fk",
+          "tableFrom": "historico",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.informacoes_escola": {
+      "name": "informacoes_escola",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metodologia": {
+          "name": "metodologia",
+          "type": "metodologia",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inclusao": {
+          "name": "inclusao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atividades_extracurriculares": {
+          "name": "atividades_extracurriculares",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "diferenciais": {
+          "name": "diferenciais",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "avaliacao_mec": {
+          "name": "avaliacao_mec",
+          "type": "numeric(3, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nota_pais": {
+          "name": "nota_pais",
+          "type": "numeric(3, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_avaliacoes_pais": {
+          "name": "total_avaliacoes_pais",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "infraestrutura": {
+          "name": "infraestrutura",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "site": {
+          "name": "site",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "telefone": {
+          "name": "telefone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atualizado_em": {
+          "name": "atualizado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "informacoes_escola_escola_id_escolas_id_fk": {
+          "name": "informacoes_escola_escola_id_escolas_id_fk",
+          "tableFrom": "informacoes_escola",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "informacoes_escola_escola_id_unique": {
+          "name": "informacoes_escola_escola_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "escola_id"
+          ]
+        }
+      }
+    },
+    "public.notas": {
+      "name": "notas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fonte": {
+          "name": "fonte",
+          "type": "fonte_nota",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_normalizado": {
+          "name": "valor_normalizado",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_original": {
+          "name": "valor_original",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "escala_original": {
+          "name": "escala_original",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ano_referencia": {
+          "name": "ano_referencia",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coletado_em": {
+          "name": "coletado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "notas_escola_id_escolas_id_fk": {
+          "name": "notas_escola_id_escolas_id_fk",
+          "tableFrom": "notas",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.olimpiadas": {
+      "name": "olimpiadas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competicao": {
+          "name": "competicao",
+          "type": "competicao",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nivel": {
+          "name": "nivel",
+          "type": "nivel_medalha",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pontos": {
+          "name": "pontos",
+          "type": "numeric(3, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edicao": {
+          "name": "edicao",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aluno_anonimizado": {
+          "name": "aluno_anonimizado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coletado_em": {
+          "name": "coletado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "olimpiadas_escola_id_escolas_id_fk": {
+          "name": "olimpiadas_escola_id_escolas_id_fk",
+          "tableFrom": "olimpiadas",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.scores": {
+      "name": "scores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "escola_id": {
+          "name": "escola_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score_composto": {
+          "name": "score_composto",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icb": {
+          "name": "icb",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "peso_enem": {
+          "name": "peso_enem",
+          "type": "numeric(3, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "peso_olimpiadas": {
+          "name": "peso_olimpiadas",
+          "type": "numeric(3, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "peso_aprovacao": {
+          "name": "peso_aprovacao",
+          "type": "numeric(3, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "peso_ideb": {
+          "name": "peso_ideb",
+          "type": "numeric(3, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "calculado_em": {
+          "name": "calculado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "scores_escola_id_escolas_id_fk": {
+          "name": "scores_escola_id_escolas_id_fk",
+          "tableFrom": "scores",
+          "tableTo": "escolas",
+          "columnsFrom": [
+            "escola_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "scores_escola_id_unique": {
+          "name": "scores_escola_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "escola_id"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {
+    "public.competicao": {
+      "name": "competicao",
+      "schema": "public",
+      "values": [
+        "obmep",
+        "obf",
+        "obq",
+        "oba",
+        "canguru",
+        "omerj",
+        "mandacaru"
+      ]
+    },
+    "public.concurso_militar": {
+      "name": "concurso_militar",
+      "schema": "public",
+      "values": [
+        "espcex",
+        "afa",
+        "efomm",
+        "en",
+        "ita",
+        "ime"
+      ]
+    },
+    "public.fonte_nota": {
+      "name": "fonte_nota",
+      "schema": "public",
+      "values": [
+        "enem",
+        "ideb",
+        "aprovacao_univ"
+      ]
+    },
+    "public.metodologia": {
+      "name": "metodologia",
+      "schema": "public",
+      "values": [
+        "tradicional",
+        "montessori",
+        "waldorf",
+        "construtivista",
+        "sociointeracionista",
+        "freiriana",
+        "internacional"
+      ]
+    },
+    "public.nivel_medalha": {
+      "name": "nivel_medalha",
+      "schema": "public",
+      "values": [
+        "ouro",
+        "prata",
+        "bronze",
+        "mencao"
+      ]
+    },
+    "public.tipo_escola": {
+      "name": "tipo_escola",
+      "schema": "public",
+      "values": [
+        "publica",
+        "privada",
+        "federal",
+        "tecnica"
+      ]
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

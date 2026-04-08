@@ -1,0 +1,37 @@
+{
+  "id": "00000000-0000-0000-0000-000000000001",
+  "cnpj": "00.000.000/0001-00",
+  "nome": "Escola Pública Estadual Exemplo",
+  "tipo": "publica",
+  "uf": "SP",
+  "municipio": "São Paulo",
+  "lat": "-23.550520",
+  "lng": "-46.633308",
+  "mensalidade_anual": null,
+  "mensalidade_ano_ref": null,
+  "notas": [
+    {
+      "fonte": "enem",
+      "valor_original": "650",
+      "valor_normalizado": "6.50",
+      "escala_original": "0-1000",
+      "ano_referencia": 2024
+    },
+    {
+      "fonte": "ideb",
+      "valor_original": "5.5",
+      "valor_normalizado": "5.50",
+      "escala_original": "0-10",
+      "ano_referencia": 2023
+    }
+  ],
+  "olimpiadas": [
+    {
+      "competicao": "obmep",
+      "nivel": "bronze",
+      "pontos": "1.0",
+      "edicao": 2024,
+      "aluno_anonimizado": "hash_123"
+    }
+  ]
+}

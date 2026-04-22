@@ -57,6 +57,13 @@
       "when": 1775437306225,
       "tag": "0007_gifted_colonel_america",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1776358936017,
+      "tag": "0008_goofy_thor",
+      "breakpoints": true
     }
   ]
 }

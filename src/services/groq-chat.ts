@@ -8,12 +8,12 @@ import { logger } from '../utils/logger';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 if (!GROQ_API_KEY) {
-  throw new Error('GROQ_API_KEY environment variable is required');
+  logger.warn('groq-chat', 'GROQ_API_KEY not set - chat functionality will be limited');
 }
 
-const groq = new Groq({
+const groq = GROQ_API_KEY ? new Groq({
   apiKey: GROQ_API_KEY,
-});
+}) : null;
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
@@ -52,6 +52,11 @@ export async function chatCompletion(
   context?: ChatContext,
   model: string = 'llama-3.3-70b-versatile'
 ): Promise<string> {
+  if (!groq) {
+    logger.warn('groq-chat', 'GROQ API not configured - returning mock response');
+    return 'Chat functionality requires GROQ_API_KEY to be configured. Please add your GROQ API key to the .env file.';
+  }
+
   try {
     // Adicionar contexto ao system prompt se houver
     const systemMessage: ChatMessage = {
@@ -89,6 +94,11 @@ export async function chatCompletion(
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
+  // Se GROQ não estiver configurado, usar hash simples
+  if (!groq) {
+    return simpleHash(text);
+  }
+
   // Para embeddings, vamos usar uma abordagem simples por enquanto
   // Em produção, seria melhor usar um modelo de embeddings dedicado
   try {

@@ -6,30 +6,45 @@ services:
     container_name: escolavalor-db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: Esc0l4Val0r2026Sec
       POSTGRES_DB: escolavalor
+    # Exposed only on localhost (not public)
     ports:
-      - "54320:5432"
+      - "127.0.0.1:54320:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
+      interval: 30s
       timeout: 5s
-      retries: 5
+      retries: 3
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    tmpfs:
+      - /tmp:noexec,nosuid,size=64m
 
   redis:
     image: redis:7-alpine
     container_name: escolavalor-redis
+    # Exposed only on localhost (not public)
     ports:
-      - "63790:6379"
+      - "127.0.0.1:63790:6379"
     volumes:
       - redis_data:/data
+    command: redis-server --requirepass R3d1s_Esc0la_2026!
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
+      test: ["CMD", "redis-cli", "-a", "R3d1s_Esc0la_2026!", "ping"]
+      interval: 30s
       timeout: 5s
-      retries: 5
+      retries: 3
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 64M
 
 volumes:
   postgres_data:

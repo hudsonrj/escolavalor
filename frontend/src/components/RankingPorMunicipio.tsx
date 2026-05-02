@@ -51,14 +51,6 @@ export function RankingPorMunicipio() {
 
   const rankings: RankingMunicipio[] = data?.data || [];
 
-  const getScoreColor = (score: number) => {
-    if (score >= 7.5) return 'text-green-600 dark:text-green-400';
-    if (score >= 6) return 'text-emerald-600 dark:text-emerald-400';
-    if (score >= 4.5) return 'text-yellow-600 dark:text-yellow-400';
-    if (score >= 3) return 'text-orange-600 dark:text-orange-400';
-    return 'text-red-600 dark:text-red-400';
-  };
-
   const getMedalEmoji = (posicao: number) => {
     if (posicao === 1) return '🥇';
     if (posicao === 2) return '🥈';

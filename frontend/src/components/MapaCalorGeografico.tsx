@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import type { GeoJsonObject } from 'geojson';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Loader2 } from 'lucide-react';
 
@@ -20,7 +20,7 @@ async function fetchRankingUF() {
 }
 
 // Simplified GeoJSON for Brazilian states (centroids and approximate boundaries)
-const BRAZIL_STATES_GEOJSON: GeoJsonObject = {
+const BRAZIL_STATES_GEOJSON: any = {
   type: 'FeatureCollection',
   features: [
     {
@@ -242,7 +242,6 @@ export function MapaCalorGeografico() {
   const onEachFeature = (feature: any, layer: L.Layer) => {
     const uf = feature.properties.uf;
     const nome = feature.properties.nome;
-    const score = scoreMap.get(uf);
     const ranking = data?.data.find((item: RankingUF) => item.uf === uf);
 
     if (ranking) {

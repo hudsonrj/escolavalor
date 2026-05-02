@@ -4,12 +4,9 @@ import {
   formatCurrency,
   formatScore,
   formatICB,
-  getTipoBadgeColor,
   getTipoLabel,
-  getScoreColor,
   getICBRating
 } from '../lib/utils';
-import { cn } from '../lib/utils';
 
 interface EscolaCardProps {
   escola: Escola;
@@ -18,7 +15,6 @@ interface EscolaCardProps {
 }
 
 export function EscolaCard({ escola, onClick, rank }: EscolaCardProps) {
-  const score = escola.score_composto ? parseFloat(escola.score_composto) : 0;
   const icb = escola.icb ? parseFloat(escola.icb) : null;
   const icbRating = icb ? getICBRating(icb) : null;
 

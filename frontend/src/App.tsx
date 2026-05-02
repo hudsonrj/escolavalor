@@ -11,12 +11,12 @@ import { BackgroundIllustration } from './components/BackgroundIllustration';
 import { Footer } from './components/Footer';
 import { InstallPWA } from './components/InstallPWA';
 import { useRanking, useEscola } from './hooks/useEscolas';
-import { Search, Filter, Trophy, Loader2, Map, List, Heart, Sparkles, Gift, Zap } from 'lucide-react';
+import { Search, Filter, Trophy, Loader2, Map, List, Heart, Sparkles } from 'lucide-react';
 
 const queryClient = new QueryClient();
 
 function AppContent() {
-  const [pagina, setPagina] = useState<'ranking' | 'mapa' | 'inclusao'>('ranking');
+  const [pagina, setPagina] = useState('ranking' as string);
   const [uf, setUf] = useState('');
   const [municipio, setMunicipio] = useState('');
   const [redeEnsino, setRedeEnsino] = useState('');

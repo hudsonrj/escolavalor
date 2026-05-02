@@ -13,8 +13,6 @@ export function GraficoEnemHistorico({ enemDetalhes }: GraficoEnemHistoricoProps
 
   // Calcular máximos para escala
   const maxNota = Math.max(...dadosOrdenados.map(d => parseFloat(d.nota_media)));
-  const maxAlunos = Math.max(...dadosOrdenados.map(d => d.total_alunos));
-
   // Calcular tendência (comparar ano mais recente com o mais antigo)
   const notaRecente = parseFloat(dadosOrdenados[0]?.nota_media || '0');
   const notaAntiga = parseFloat(dadosOrdenados[dadosOrdenados.length - 1]?.nota_media || '0');

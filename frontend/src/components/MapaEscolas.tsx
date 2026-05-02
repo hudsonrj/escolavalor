@@ -1,5 +1,6 @@
-import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from 'react-leaflet';
-import { Icon, LatLngExpression } from 'leaflet';
+import { MapContainer, TileLayer, Popup, CircleMarker } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import type { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { Escola } from '../types';
 import { formatCurrency } from '../lib/utils';

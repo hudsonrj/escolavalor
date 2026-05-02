@@ -1,4 +1,4 @@
-import { X, MapPin, Award, TrendingUp, BookOpen, Medal, GraduationCap, Users, Trophy, Building2, Star, Phone, Mail, Globe, Languages, Plane, BadgeCheck, MessageCircle, ThumbsUp, AlertCircle, Inbox, Sparkles } from 'lucide-react';
+import { X, MapPin, Award, TrendingUp, BookOpen, Medal, GraduationCap, Users, Trophy, Building2, Star, Phone, Mail, Globe, Languages, BadgeCheck, AlertCircle, Inbox, Sparkles } from 'lucide-react';
 import type { EscolaDetalhada } from '../types';
 import { GraficoMedalhas } from './GraficoMedalhas';
 import { GraficoReclamacoes } from './GraficoReclamacoes';
@@ -7,12 +7,9 @@ import { GraficoEnemHistorico } from './GraficoEnemHistorico';
 import { GraficoAprovacoes5Anos } from './GraficoAprovacoes5Anos';
 import {
   formatCurrency,
-  formatScore,
-  formatICB,
   getTipoLabel,
   getICBRating
 } from '../lib/utils';
-import { cn } from '../lib/utils';
 
 interface EscolaDetalhesModalProps {
   escola: EscolaDetalhada;
@@ -311,7 +308,7 @@ export function EscolaDetalhesModal({ escola, onClose }: EscolaDetalhesModalProp
                   <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-sm">
                     <h4 className="text-lg font-bold text-gray-900 mb-4">Desempenho por Área</h4>
                     {enemDetalhe && (
-                      <GraficoEnemAreas enemDetalhe={enemDetalhe} />
+                      <GraficoEnemAreas enemDetalhes={enemDetalhe} />
                     )}
                   </div>
                 </div>
@@ -350,7 +347,7 @@ export function EscolaDetalhesModal({ escola, onClose }: EscolaDetalhesModalProp
                 {/* Gráfico de aprovações */}
                 <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-sm">
                   <h4 className="text-lg font-bold text-gray-900 mb-4">Aprovações por Ano</h4>
-                  <GraficoAprovacoes5Anos aprovacoesUniversitarias={escola.aprovacoesUniversitarias} />
+                  <GraficoAprovacoes5Anos aprovacoes={escola.aprovacoesUniversitarias} />
                 </div>
 
                 {/* Top Universidades */}

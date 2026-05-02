@@ -20,16 +20,6 @@ export function GraficoMedalhas({ olimpiadas }: GraficoMedalhasProps) {
   const anos = Object.keys(medalhasPorAno).sort().slice(-5); // Últimos 5 anos
   const maxTotal = Math.max(...anos.map(ano => medalhasPorAno[parseInt(ano)].total));
 
-  const getMedalColor = (nivel: string) => {
-    const colors = {
-      ouro: 'bg-yellow-400',
-      prata: 'bg-gray-400',
-      bronze: 'bg-orange-600',
-      mencao: 'bg-blue-500',
-    };
-    return colors[nivel as keyof typeof colors] || 'bg-gray-400';
-  };
-
   return (
     <div>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">

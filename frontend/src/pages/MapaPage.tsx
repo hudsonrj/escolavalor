@@ -8,7 +8,7 @@ import { MapaCalorGeografico } from '../components/MapaCalorGeografico';
 import { EstatisticasMunicipio } from '../components/EstatisticasMunicipio';
 import { RankingPorUF } from '../components/RankingPorUF';
 import { RankingPorMunicipio } from '../components/RankingPorMunicipio';
-import { Map, BarChart3, MapPin, Loader2, ArrowLeft, Trophy, Building2, Flame } from 'lucide-react';
+import { Map, MapPin, Loader2, ArrowLeft, Trophy, Building2, Flame } from 'lucide-react';
 
 interface MapaPageProps {
   onVoltar?: () => void;
